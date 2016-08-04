@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set('views', path.join(__dirname, 'views'));
 
 // set in env
-const callerId = "+13127577926";
+const callerId = process.env.TWILIO_NUMBER;
 const defaultClientName = "ryan";
 
 app.use('/static', express.static(__dirname + '/public'));
@@ -34,7 +34,7 @@ app.get('/client', (req, res) => {
       process.env.TWILIO_ACCOUNT_SID,
       process.env.TWILIO_AUTH_TOKEN
   );
-  capability.allowClientOutgoing(process.env.TWILIO_RYANPHONE_SID);
+  capability.allowClientOutgoing(process.env.TWILIO_APP_SID);
   capability.allowClientIncoming(clientName);
 
   const capToken = capability.generate();

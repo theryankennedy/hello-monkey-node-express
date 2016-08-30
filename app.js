@@ -1,30 +1,19 @@
-const express = require("express");
+const express = require('express');
 const path = require('path');
-const router = express.Router();
-const twilio = require("twilio");
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
+const twilio = require('twilio');
 
 const app = express();
 
 // view engine setup
-const exphbs = require('express-handlebars');
-app.engine('.hbs', exphbs({extname: '.hbs'}));
-app.set('view engine', '.hbs');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.set('views', path.join(__dirname, 'views'));
-
-// set in env
 const callerId = process.env.TWILIO_NUMBER;
 const defaultClientName = "ryan";
-
-app.use('/static', express.static(__dirname + '/public'));
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
 
 app.get('/client', (req, res) => {
 
@@ -43,7 +32,7 @@ app.get('/client', (req, res) => {
 
 });
 
-app.post('/voice', (req, res) => {
+app.all('/voice', (req, res) => {
 
   const phoneNumber = req.body.PhoneNumber;
   const twiml = new twilio.TwimlResponse();
@@ -53,10 +42,12 @@ app.post('/voice', (req, res) => {
   };
 
   const clientDialer = function(dial) {
-      dial.client(defaultClientName);
+      dial.client(phoneNumber);
   };
 
-  if (phoneNumber != null) {
+  const phoneNumberRegEx = /^([+]?\d{1,2}[-\s]?|)\d{3}[-\s]?\d{3}[-\s]?\d{4}$/igm
+
+  if (phoneNumber && phoneNumber.match(phoneNumberRegEx)) {
     twiml.dial({callerId : callerId}, numberDialer);
   }else {
     twiml.dial({callerId : callerId}, clientDialer);

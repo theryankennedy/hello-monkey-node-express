@@ -1,0 +1,21 @@
+{
+  "name": "Twilio Client Quickstart for Node/Express",
+  "description": "A translation of the Twilio Client Python Quickstart.",
+  "repository": "https://github.com/theryankennedy/hello-monkey-node-express",
+  "keywords": ["twilio", "node", "express"],
+  "success_url": "/client",
+  "env": {
+    "TWILIO_ACCOUNT_SID": {
+      "description": "Your Twilio Account Sid, found right at the top of your console home landing page."
+    },
+    "TWILIO_AUTH_TOKEN": {
+      "description": "Your Twilio Auth Token, found right below the account sid."
+    },
+    "TWILIO_APP_SID": {
+      "description": "The SID of a TwiML App.  Programmable Voice --> Tools --> TwiML Apps."
+    },
+    "TWILIO_NUMBER": {
+      "description": "A Twilio phone number you purchased and configured to use the previously mentioned TwiML App. Use the + and numbers, no parens or dashes."
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "name": "Twilio Client Quickstart for Node/Express",
-  "description": "A translation of the Twilio Client Python Quickstart.",
+  "name": "hello-monkey-node-express",
+  "description": "Twilio Client Quickstart for Node/Express",
   "repository": "https://github.com/theryankennedy/hello-monkey-node-express",
   "keywords": ["twilio", "node", "express"],
   "success_url": "/client",
